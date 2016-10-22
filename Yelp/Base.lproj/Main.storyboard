@@ -36,8 +36,8 @@
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wyB-7E-0xl">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="100" id="BOo-WD-rx4"/>
-                                                        <constraint firstAttribute="width" constant="100" id="g27-ar-dLq"/>
+                                                        <constraint firstAttribute="height" constant="80" id="BOo-WD-rx4"/>
+                                                        <constraint firstAttribute="width" constant="80" id="g27-ar-dLq"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="British, Seafood, Fish" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5b-i4-hgk">
@@ -116,7 +116,13 @@
                             <constraint firstAttribute="trailing" secondItem="38F-JL-6gr" secondAttribute="trailing" id="wRM-Me-JHP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="mEq-1u-Up4"/>
+                    <navigationItem key="navigationItem" id="mEq-1u-Up4">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="h3S-ma-8Lc">
+                            <connections>
+                                <segue destination="ZM8-lb-yhc" kind="presentation" id="jAB-Bh-7nF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="38F-JL-6gr" id="FX9-MX-9EL"/>
                     </connections>
@@ -124,6 +130,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2726.5" y="357.5"/>
+        </scene>
+        <!--Filter-->
+        <scene sceneID="WlI-ls-ZDz">
+            <objects>
+                <viewController id="4t0-AX-scM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Vqh-Oh-IWD"/>
+                        <viewControllerLayoutGuide type="bottom" id="trC-hT-dR7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="df8-yv-0Fc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PbR-VA-VUX">
+                                <frame key="frameInset" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Filter" id="Bhm-YG-4yS">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="sAw-xh-Ahb"/>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="491-qp-u1d"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l4M-0q-IIt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4492" y="356.67166416791605"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RTK-rc-1R7">
@@ -142,6 +177,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHd-1t-xgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1788" y="357.57121439280365"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Cmi-3D-qGO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZM8-lb-yhc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gc5-cK-sEk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="4t0-AX-scM" kind="relationship" relationship="rootViewController" id="SVE-F9-sZq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j9L-VU-2Vr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3552.8000000000002" y="356.67166416791605"/>
         </scene>
     </scenes>
 </document>

@@ -16,9 +16,12 @@ class BusinessesViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.dataSource = self
+        tableView.dataSource = self
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        let searchBar = UISearchBar()
+        navigationItem.titleView = searchBar
         
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
