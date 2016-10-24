@@ -118,6 +118,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="mEq-1u-Up4">
                         <barButtonItem key="leftBarButtonItem" title="Filter" id="h3S-ma-8Lc">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="ZM8-lb-yhc" kind="presentation" id="jAB-Bh-7nF"/>
                             </connections>
@@ -134,7 +135,7 @@
         <!--Filter-->
         <scene sceneID="WlI-ls-ZDz">
             <objects>
-                <viewController id="4t0-AX-scM" sceneMemberID="viewController">
+                <viewController id="4t0-AX-scM" customClass="FiltersViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vqh-Oh-IWD"/>
                         <viewControllerLayoutGuide type="bottom" id="trC-hT-dR7"/>
@@ -143,18 +144,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PbR-VA-VUX">
-                                <frame key="frameInset" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PbR-VA-VUX">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterCell" id="ugM-CJ-lOg" customClass="FilterCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ugM-CJ-lOg" id="ezO-P0-IsI">
+                                            <frame key="frameInset" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="71h-6j-qPb">
+                                                    <frame key="frameInset" minX="318" minY="6" width="51" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3b-7W-NSt">
+                                                    <frame key="frameInset" minX="8" minY="11" width="129" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="filterLabel" destination="Y3b-7W-NSt" id="eFK-oj-xUa"/>
+                                            <outlet property="filterSwitch" destination="71h-6j-qPb" id="3uo-Bd-00Z"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="PbR-VA-VUX" secondAttribute="trailing" id="Bc2-52-xi2"/>
+                            <constraint firstItem="PbR-VA-VUX" firstAttribute="top" secondItem="df8-yv-0Fc" secondAttribute="top" id="RRe-DX-V0U"/>
+                            <constraint firstItem="PbR-VA-VUX" firstAttribute="leading" secondItem="df8-yv-0Fc" secondAttribute="leading" id="S84-ze-ceI"/>
+                            <constraint firstItem="trC-hT-dR7" firstAttribute="top" secondItem="PbR-VA-VUX" secondAttribute="bottom" id="wZN-Wg-32K"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Filter" id="Bhm-YG-4yS">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="sAw-xh-Ahb"/>
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="491-qp-u1d"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="sAw-xh-Ahb">
+                            <connections>
+                                <action selector="cancel:" destination="4t0-AX-scM" id="Jxr-0H-Cz4"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="491-qp-u1d">
+                            <connections>
+                                <action selector="search:" destination="4t0-AX-scM" id="gfQ-pt-VBd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="PbR-VA-VUX" id="oVr-l2-a70"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l4M-0q-IIt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -168,6 +211,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OPH-CS-AX6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.74577176570892334" green="0.066031403839588165" blue="0.0019353856332600117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -186,6 +234,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gc5-cK-sEk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.74577176570892334" green="0.066031403839588165" blue="0.0019353856332600117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

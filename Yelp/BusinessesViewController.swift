@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
     
     var businesses: [Business]!
     
@@ -21,6 +21,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource {
         tableView.rowHeight = UITableViewAutomaticDimension
         
         let searchBar = UISearchBar()
+        searchBar.delegate = self
         navigationItem.titleView = searchBar
         
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
@@ -39,6 +40,18 @@ class BusinessesViewController: UIViewController, UITableViewDataSource {
          }
          */
         
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            //Perform selector needed to resign first responder
+            searchBar.performSelector(onMainThread: #selector(resignFirstResponder), with: nil, waitUntilDone: false)
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print(searchBar.text!)
+        searchBar.resignFirstResponder()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
