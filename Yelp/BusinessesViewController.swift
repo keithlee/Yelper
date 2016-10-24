@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, FiltersViewControllerDelegate{
     
     var businesses: [Business]!
     
@@ -24,34 +24,33 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: searchBar.text!, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         })
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-         self.businesses = businesses
-         
-         for business in businesses {
-         print(business.name!)
-         print(business.address!)
-         }
-         }
-         */
-        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             //Perform selector needed to resign first responder
             searchBar.performSelector(onMainThread: #selector(resignFirstResponder), with: nil, waitUntilDone: false)
+            Business.searchWithTerm(term: "", sort: YelpSortMode.bestMatched, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]?, error: Error?) -> Void in
+                if let businesses = businesses {
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print(searchBar.text!)
         searchBar.resignFirstResponder()
+        Business.searchWithTerm(term: searchBar.text!, sort: YelpSortMode.bestMatched, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]?, error: Error?) -> Void in
+            if let businesses = businesses {
+                self.businesses = businesses
+                self.tableView.reloadData()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,19 +68,26 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         return cell
     }
     
+    func FiltersViewController(filtersViewController: FiltersViewController, didUpdateFilters updatedFilters: FilterSettings) {
+        print(updatedFilters.categories)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    /*
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
+        if segue.identifier == "FilterSegue" {
+            let filterNav = segue.destination as! UINavigationController
+            let fvc = filterNav.topViewController as! FiltersViewController
+            fvc.delegate = self
+        }
      }
-     */
     
 }

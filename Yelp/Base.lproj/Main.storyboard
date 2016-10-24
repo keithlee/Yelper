@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A322" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="t78-oe-MU7">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,7 +25,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="149"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SlA-GT-A9P" id="Ot5-NE-xUm">
-                                            <frame key="frameInset" width="375" height="148"/>
+                                            <frame key="frameInset" width="375" height="148.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Codmother Fish and" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJH-xK-okD">
@@ -120,7 +119,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Filter" id="h3S-ma-8Lc">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="ZM8-lb-yhc" kind="presentation" id="jAB-Bh-7nF"/>
+                                <segue destination="ZM8-lb-yhc" kind="presentation" identifier="FilterSegue" id="jAB-Bh-7nF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -151,21 +150,27 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ugM-CJ-lOg" id="ezO-P0-IsI">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="71h-6j-qPb">
-                                                    <frame key="frameInset" minX="318" minY="6" width="51" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="71h-6j-qPb">
+                                                    <connections>
+                                                        <action selector="switchValueChange:" destination="ugM-CJ-lOg" eventType="valueChanged" id="6rN-JY-2J2"/>
+                                                    </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3b-7W-NSt">
-                                                    <frame key="frameInset" minX="8" minY="11" width="129" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3b-7W-NSt">
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Y3b-7W-NSt" firstAttribute="leading" secondItem="ezO-P0-IsI" secondAttribute="leadingMargin" id="1SL-oo-mjR"/>
+                                                <constraint firstItem="71h-6j-qPb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Y3b-7W-NSt" secondAttribute="trailing" constant="8" id="4Yu-7Z-hNh"/>
+                                                <constraint firstItem="71h-6j-qPb" firstAttribute="trailing" secondItem="ezO-P0-IsI" secondAttribute="trailingMargin" id="Wb5-7W-OTH"/>
+                                                <constraint firstItem="71h-6j-qPb" firstAttribute="centerY" secondItem="Y3b-7W-NSt" secondAttribute="centerY" id="gbP-Db-vbX"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="71h-6j-qPb" secondAttribute="bottom" id="kmM-yV-sYE"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="filterLabel" destination="Y3b-7W-NSt" id="eFK-oj-xUa"/>
