@@ -145,20 +145,21 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         case Section.deals:
             cell.filterLabel.text = "Offering a Deal"
             cell.filterSwitch.isOn = switchStates[indexPath.section]?[indexPath.row] ?? false
+            cell.selectionStyle = .none
         case Section.distance:
             if indexPath.row == 0 {
-                cell.accessoryType = .detailButton
+                cell.accessoryView = distanceSectionExpanded ? nil : UIImageView(image: #imageLiteral(resourceName: "DownArrow"))
             } else {
-                cell.accessoryType = .none
+                cell.accessoryView = nil
             }
             cell.filterSwitch.isHidden = true
             setDistanceLabel(cell: cell, row: indexPath.row)
         case Section.sort:
             cell.filterSwitch.isHidden = true
             if indexPath.row == 0 {
-                cell.accessoryType = .detailButton
+                cell.accessoryView = sortSectionExpanded ? nil : UIImageView(image: #imageLiteral(resourceName: "DownArrow"))
             } else {
-                cell.accessoryType = .none
+                cell.accessoryView = nil
             }
             cell.filterSwitch.isHidden = true
             setSortLabel(cell: cell, row: indexPath.row)
@@ -167,6 +168,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.filterSwitch.isHidden = false
             cell.filterSwitch.isOn = switchStates[indexPath.section]?[indexPath.row] ?? false
             cell.accessoryType = .none
+            cell.selectionStyle = .none
         default:
             break
         }

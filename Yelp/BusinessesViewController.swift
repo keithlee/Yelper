@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FTIndicator
 
 class BusinessesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, FiltersViewControllerDelegate{
     
@@ -24,6 +25,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         
         searchBar.delegate = self
         navigationItem.titleView = searchBar
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
         
         Business.searchWithTerm(term: searchBar.text!, completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
@@ -31,26 +35,12 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         })
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == "" {
-            //Perform selector needed to resign first responder
-            searchBar.performSelector(onMainThread: #selector(resignFirstResponder), with: nil, waitUntilDone: false)
-            Business.searchWithTerm(term: "",
-                                    sort: filterSettings.sort,
-                                    categories: filterSettings.categories,
-                                    deals: filterSettings.deals,
-                                    distance: filterSettings.distance)
-                                    { (businesses: [Business]?, error: Error?) -> Void in
-                                        if let businesses = businesses {
-                                            self.businesses = businesses
-                                            self.tableView.reloadData()
-                                        }
-                                    }
-        }
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        search(refreshControl.endRefreshing)
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+    func search(_ callback: @escaping (() -> Void) = {}) {
+        FTIndicator.showProgressWithmessage("")
         Business.searchWithTerm(term: searchBar.text!,
                                 sort: filterSettings.sort,
                                 categories: filterSettings.categories,
@@ -60,8 +50,24 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
                                     if let businesses = businesses {
                                         self.businesses = businesses
                                         self.tableView.reloadData()
+                                        FTIndicator.dismissProgress()
+                                        callback()
                                     }
                                 }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            //Perform selector needed to resign first responder
+            searchBar.performSelector(onMainThread: #selector(resignFirstResponder), with: nil, waitUntilDone: false)
+            search()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        FTIndicator.showProgressWithmessage("")
+        search()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,23 +81,14 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
         cell.business = businesses[indexPath.row]
+        cell.selectionStyle = .none
         
         return cell
     }
     
     func FiltersViewController(filtersViewController: FiltersViewController, didUpdateFilters updatedFilters: FilterSettings) {
         filterSettings = updatedFilters
-        Business.searchWithTerm(term: searchBar.text!,
-                                sort: filterSettings.sort,
-                                categories: filterSettings.categories,
-                                deals: filterSettings.deals,
-                                distance: filterSettings.distance)
-                                { (businesses: [Business]?, error: Error?) -> Void in
-                                    if let businesses = businesses {
-                                        self.businesses = businesses
-                                        self.tableView.reloadData()
-                                    }
-                                }
+        search()
     }
     
     override func didReceiveMemoryWarning() {

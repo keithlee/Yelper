@@ -25,7 +25,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="149"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SlA-GT-A9P" id="Ot5-NE-xUm">
-                                            <frame key="frameInset" width="375" height="148.5"/>
+                                            <frame key="frameInset" width="375" height="148"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Codmother Fish and" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJH-xK-okD">
@@ -39,15 +39,15 @@
                                                         <constraint firstAttribute="width" constant="80" id="g27-ar-dLq"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="British, Seafood, Fish" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5b-i4-hgk">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="British, Seafood, Fish, dog, fish" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5b-i4-hgk">
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PHG-AV-hX5">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="EiJ-FV-gmn"/>
-                                                        <constraint firstAttribute="width" constant="124" id="SAo-Jk-ihL"/>
+                                                        <constraint firstAttribute="height" constant="18" id="EiJ-FV-gmn"/>
+                                                        <constraint firstAttribute="width" constant="100" id="SAo-Jk-ihL"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2824 Jones St, North Beach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwE-6t-i21">
@@ -66,13 +66,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1266 Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gat-Il-7Fe">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="NXm-XR-j7r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cwE-6t-i21" secondAttribute="trailing" constant="8" id="3HK-4Q-GtA"/>
+                                                <constraint firstItem="NXm-XR-j7r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cwE-6t-i21" secondAttribute="trailing" constant="4" id="3HK-4Q-GtA"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="WWA-DQ-oLA" secondAttribute="trailing" id="3gJ-9W-eue"/>
                                                 <constraint firstItem="PHG-AV-hX5" firstAttribute="top" secondItem="CJH-xK-okD" secondAttribute="bottom" constant="4" id="4If-ek-mlS"/>
                                                 <constraint firstItem="NXm-XR-j7r" firstAttribute="top" secondItem="Ot5-NE-xUm" secondAttribute="topMargin" id="5v6-cw-diY"/>
@@ -86,7 +86,8 @@
                                                 <constraint firstItem="PHG-AV-hX5" firstAttribute="leading" secondItem="wyB-7E-0xl" secondAttribute="trailing" constant="8" id="StL-e2-0Pw"/>
                                                 <constraint firstItem="CJH-xK-okD" firstAttribute="leading" secondItem="wyB-7E-0xl" secondAttribute="trailing" constant="8" id="iQg-m0-aO7"/>
                                                 <constraint firstItem="wyB-7E-0xl" firstAttribute="leading" secondItem="Ot5-NE-xUm" secondAttribute="leadingMargin" id="jIB-yc-c4I"/>
-                                                <constraint firstItem="NXm-XR-j7r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CJH-xK-okD" secondAttribute="trailing" constant="8" id="oKU-hV-eu8"/>
+                                                <constraint firstItem="NXm-XR-j7r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CJH-xK-okD" secondAttribute="trailing" constant="4" id="oKU-hV-eu8"/>
+                                                <constraint firstItem="NXm-XR-j7r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="G5b-i4-hgk" secondAttribute="trailing" constant="4" id="q57-Q1-XIV"/>
                                                 <constraint firstItem="gat-Il-7Fe" firstAttribute="leading" secondItem="PHG-AV-hX5" secondAttribute="trailing" constant="8" id="qyK-iA-vG7"/>
                                                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="G5b-i4-hgk" secondAttribute="bottom" id="rKh-TJ-WzI"/>
                                                 <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="wyB-7E-0xl" secondAttribute="bottom" id="s6w-cR-Lpe"/>
@@ -129,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2726.5" y="357.5"/>
+            <point key="canvasLocation" x="2726.25" y="357.04225352112678"/>
         </scene>
         <!--Filter-->
         <scene sceneID="WlI-ls-ZDz">
@@ -150,7 +151,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ugM-CJ-lOg" id="ezO-P0-IsI">
-                                            <frame key="frameInset" width="375" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="71h-6j-qPb">
