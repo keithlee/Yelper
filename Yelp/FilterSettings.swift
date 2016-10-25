@@ -11,8 +11,8 @@ import Foundation
 class FilterSettings {
     var categories: [String]?
     var deals: Bool?
-    var distance: String?
-    var sort: String?
+    var distance: Int?
+    var sort: YelpSortMode?
     
     init() {
     

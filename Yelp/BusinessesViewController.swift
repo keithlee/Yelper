@@ -13,6 +13,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
     var businesses: [Business]!
     
     @IBOutlet weak var tableView: UITableView!
+    let searchBar = UISearchBar()
+    var filterSettings = FilterSettings()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +22,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        let searchBar = UISearchBar()
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         
@@ -34,23 +35,33 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         if searchText == "" {
             //Perform selector needed to resign first responder
             searchBar.performSelector(onMainThread: #selector(resignFirstResponder), with: nil, waitUntilDone: false)
-            Business.searchWithTerm(term: "", sort: YelpSortMode.bestMatched, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]?, error: Error?) -> Void in
-                if let businesses = businesses {
-                    self.businesses = businesses
-                    self.tableView.reloadData()
-                }
-            }
+            Business.searchWithTerm(term: "",
+                                    sort: filterSettings.sort,
+                                    categories: filterSettings.categories,
+                                    deals: filterSettings.deals ?? true,
+                                    distance: filterSettings.distance)
+                                    { (businesses: [Business]?, error: Error?) -> Void in
+                                        if let businesses = businesses {
+                                            self.businesses = businesses
+                                            self.tableView.reloadData()
+                                        }
+                                    }
         }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        Business.searchWithTerm(term: searchBar.text!, sort: YelpSortMode.bestMatched, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]?, error: Error?) -> Void in
-            if let businesses = businesses {
-                self.businesses = businesses
-                self.tableView.reloadData()
-            }
-        }
+        Business.searchWithTerm(term: searchBar.text!,
+                                sort: filterSettings.sort,
+                                categories: filterSettings.categories,
+                                deals: filterSettings.deals ?? true,
+                                distance: filterSettings.distance)
+                                { (businesses: [Business]?, error: Error?) -> Void in
+                                    if let businesses = businesses {
+                                        self.businesses = businesses
+                                        self.tableView.reloadData()
+                                    }
+                                }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,7 +80,18 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
     }
     
     func FiltersViewController(filtersViewController: FiltersViewController, didUpdateFilters updatedFilters: FilterSettings) {
-        print(updatedFilters.categories)
+        filterSettings = updatedFilters
+        Business.searchWithTerm(term: searchBar.text!,
+                                sort: filterSettings.sort,
+                                categories: filterSettings.categories,
+                                deals: filterSettings.deals,
+                                distance: filterSettings.distance)
+                                { (businesses: [Business]?, error: Error?) -> Void in
+                                    if let businesses = businesses {
+                                        self.businesses = businesses
+                                        self.tableView.reloadData()
+                                    }
+                                }
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,6 +108,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         if segue.identifier == "FilterSegue" {
             let filterNav = segue.destination as! UINavigationController
             let fvc = filterNav.topViewController as! FiltersViewController
+            fvc.filterSettings = filterSettings
             fvc.delegate = self
         }
      }

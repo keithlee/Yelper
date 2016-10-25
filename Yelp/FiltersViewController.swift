@@ -21,11 +21,11 @@ struct FilterConstants {
 }
 
 struct DistanceConstants {
-    static let auto = (label: "Auto", code: "")
-    static let small = (label:"0.1 miles", code: "161")
-    static let oneMile = (label: "1 mile", code: "1609")
-    static let fiveMile = (label: "5 miles", code: "8045")
-    static let twentyMile = (label: "20 miles", code: "32187")
+    static let auto: (label: String, code: Int?) = ("Auto", nil)
+    static let small: (label: String, code: Int?) = ("0.1 miles", 161)
+    static let oneMile: (label: String, code: Int?) = ("1 mile", 1609)
+    static let fiveMile: (label: String, code: Int?) = ("5 miles", 8045)
+    static let twentyMile: (label: String, code: Int?) = ( "20 miles", 32187)
 }
 
 struct SortConstants {
@@ -57,14 +57,42 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     private var sortSectionExpanded = false
     private var sortValue = SortConstants.bestMatched.label
     private var switchStates = [Int: [Int: Bool]]()
+    private var categories = [
+        ["name" : "Chinese", "code": "chinese"],
+        ["name" : "Italian", "code": "italian"],
+        ["name" : "Japanese", "code": "japanese"],
+        ["name" : "Spanish", "code": "spanish"],
+    ]
+    private var categoriesDictionary =  [String: Int]()
+    
+    var filterSettings: FilterSettings?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         
-        print(DistanceConstants.auto.label)
         switchStates = [0: [Int:Bool](), 1: [Int:Bool](), 2: [Int:Bool](), 3: [Int:Bool]()]
+        
+        for (index, category) in categories.enumerated() {
+            categoriesDictionary[category["code"]!] = index
+        }
+        
+        if let filterSettings = filterSettings {
+            if let distance = filterSettings.distance {
+                distanceValue = convertedDistance(from: distance)
+            }
+            if let sort = filterSettings.sort {
+                sortValue = convertedSort(from: sort)
+            }
+            if let filterCategories = filterSettings.categories {
+                for category in filterCategories {
+                    let index = categoriesDictionary[category]!
+                    switchStates[Section.categories]?[index] = true
+                }
+            }
+            switchStates[Section.deals]?[0] = filterSettings.deals ?? false
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -120,6 +148,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         case Section.distance:
             if indexPath.row == 0 {
                 cell.accessoryType = .detailButton
+            } else {
+                cell.accessoryType = .none
             }
             cell.filterSwitch.isHidden = true
             setDistanceLabel(cell: cell, row: indexPath.row)
@@ -127,11 +157,13 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.filterSwitch.isHidden = true
             if indexPath.row == 0 {
                 cell.accessoryType = .detailButton
+            } else {
+                cell.accessoryType = .none
             }
             cell.filterSwitch.isHidden = true
             setSortLabel(cell: cell, row: indexPath.row)
         case Section.categories:
-            cell.filterLabel.text = CategoriesData.categories[indexPath.row]["name"]
+            cell.filterLabel.text = categories[indexPath.row]["name"]
             cell.filterSwitch.isHidden = false
             cell.filterSwitch.isOn = switchStates[indexPath.section]?[indexPath.row] ?? false
             cell.accessoryType = .none
@@ -193,7 +225,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         case Section.sort:
             return sortSectionExpanded ? 3 : 1
         case Section.categories:
-            return CategoriesData.categories.count
+            return categories.count
         default:
             return 0
         }
@@ -207,16 +239,81 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func settingsFromFilters() -> FilterSettings {
         let filterSettings = FilterSettings()
-        filterSettings.distance = distanceValue
-        filterSettings.sort = sortValue
-        var categories: [String] = [String]()
+        
+        filterSettings.distance = convertedDistance(from: distanceValue)
+        filterSettings.deals = switchStates[Section.deals]?[0] ?? false
+        
+        var categoriesArray: [String] = [String]()
         for (row, isSelected) in switchStates[Section.categories]! {
             if isSelected {
-                categories.append(CategoriesData.categories[row]["code"]!)
+                categoriesArray.append(categories[row]["code"]!)
             }
         }
-        filterSettings.categories = categories
+        filterSettings.categories = categoriesArray
+        filterSettings.sort = convertedSort(from: sortValue)
+        
         return filterSettings
+    }
+    
+    
+    func convertedDistance(from label: String) -> Int?{
+        switch label {
+        case DistanceConstants.auto.label:
+            return DistanceConstants.auto.code
+        case DistanceConstants.small.label:
+            return DistanceConstants.small.code
+        case DistanceConstants.oneMile.label:
+            return DistanceConstants.oneMile.code
+        case DistanceConstants.fiveMile.label:
+            return DistanceConstants.fiveMile.code
+        case DistanceConstants.twentyMile.label:
+            return DistanceConstants.twentyMile.code
+        default:
+            return nil
+        }
+    }
+    
+    func convertedDistance(from code: Int) -> String{
+        switch code {
+        case nil:
+            return DistanceConstants.auto.label
+        case DistanceConstants.small.code!:
+            return DistanceConstants.small.label
+        case DistanceConstants.oneMile.code!:
+            return DistanceConstants.oneMile.label
+        case DistanceConstants.fiveMile.code!:
+            return DistanceConstants.fiveMile.label
+        case DistanceConstants.twentyMile.code!:
+            return DistanceConstants.twentyMile.label
+        default:
+            return ""
+        }
+    }
+    
+    func convertedSort(from code: YelpSortMode) -> String{
+        switch code {
+        case SortConstants.bestMatched.code:
+            return SortConstants.bestMatched.label
+        case SortConstants.distance.code:
+            return SortConstants.distance.label
+        case SortConstants.highestRated.code:
+            return SortConstants.highestRated.label
+        default:
+            return ""
+        }
+    }
+    
+    func convertedSort(from label: String) -> YelpSortMode?{
+        switch label {
+        case SortConstants.bestMatched.label:
+            return SortConstants.bestMatched.code
+        case SortConstants.distance.label:
+            return SortConstants.distance.code
+        case SortConstants.highestRated.label:
+            return SortConstants.highestRated.code
+        default:
+            return nil
+        }
     }
 
     /*
