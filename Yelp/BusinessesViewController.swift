@@ -38,7 +38,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
             Business.searchWithTerm(term: "",
                                     sort: filterSettings.sort,
                                     categories: filterSettings.categories,
-                                    deals: filterSettings.deals ?? true,
+                                    deals: filterSettings.deals,
                                     distance: filterSettings.distance)
                                     { (businesses: [Business]?, error: Error?) -> Void in
                                         if let businesses = businesses {
@@ -54,7 +54,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         Business.searchWithTerm(term: searchBar.text!,
                                 sort: filterSettings.sort,
                                 categories: filterSettings.categories,
-                                deals: filterSettings.deals ?? true,
+                                deals: filterSettings.deals,
                                 distance: filterSettings.distance)
                                 { (businesses: [Business]?, error: Error?) -> Void in
                                     if let businesses = businesses {
