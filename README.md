@@ -2,7 +2,7 @@
 
 **Yelper** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: **13** hours spent in total
+Time spent: **15** hours spent in total
 
 ## User Stories
 
@@ -37,13 +37,12 @@ The following **additional** features are implemented:
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. Best way to implement expandable tables. Having refreshing flickering on the updating table cell and massive view controllers
-2.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/AkSpJMv.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/5dnuvBD.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
